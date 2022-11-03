@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watson Assistant</title>
+<script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "d96c7022-7891-4bd2-bfbc-396529524f96", // The ID of this integration.
+      region: "au-syd", // The region your integration is hosted in.
+      serviceInstanceID: "b1f0f6c6-af5b-4c57-b3dc-dea7c39b914d", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+    setTimeout(function(){
+      const t=document.createElement('script');
+      t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+      document.head.appendChild(t);
+    });
+  </script>
+</head>
+<script>
+</script>
+<body style="background-color: rgb(178, 255, 255);">
+
+<div class="container" style="text-align: center;padding:15%; font-size:30px; color:rgb(242, 0, 0);">ChatBot using Watson Assistant</div>
+</body> 
+
+</html>
