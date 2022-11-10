@@ -40,29 +40,32 @@ def signup():
         return render_template('signup.html')
     else:
         email = request.form['email']
-        name = request.form['name']
-        passw = request.form['confirm-password']
         sql = "SELECT * FROM users WHERE email=?"
         stmt = ibm_db.prepare(conn, sql)
         ibm_db.bind_param(stmt, 1, email)
         ibm_db.execute(stmt)
         data = ibm_db.fetch_assoc(stmt)
         if not data:
-            if (request.form['password'] == request.form['confirm-password']):
-                insert_sql = "INSERT INTO users(EMAIL,NAME,PASSWORD) VALUES (?,?,?)"
-                prep_stmt = ibm_db.prepare(conn, insert_sql)
-                ibm_db.bind_param(prep_stmt, 1,email)
-                ibm_db.bind_param(prep_stmt, 2,name)
-                ibm_db.bind_param(prep_stmt, 3,passw)
-                ibm_db.execute(prep_stmt)
-                flash('Registered Successfully!')
-                return render_template('login.html')
+            passw = request.form['password']
+            if len(passw)>=8:
+                if (request.form['password'] == request.form['confirm-password']):
+                    insert_sql = "INSERT INTO users(EMAIL,NAME,PASSWORD) VALUES (?,?,?)"
+                    prep_stmt = ibm_db.prepare(conn, insert_sql)
+                    ibm_db.bind_param(prep_stmt, 1,email)
+                    ibm_db.bind_param(prep_stmt, 2,name)
+                    ibm_db.bind_param(prep_stmt, 3,passw)
+                    ibm_db.execute(prep_stmt)
+                    flash('Registered Successfully!')
+                    return  redirect(url_for('login'))
+                else:
+                    flash("Password must be same")
+                    return redirect(url_for('signup'))
             else:
-                flash("Password must be same")
-                return render_template('signup.html')
+                flash("Length should be greater than 8")
+                return redirect(url_for('signup'))
         else:
             flash("Email is already exist")
-            return render_template('signup.html')
+            return redirect(url_for('signup'))
 
 
 
