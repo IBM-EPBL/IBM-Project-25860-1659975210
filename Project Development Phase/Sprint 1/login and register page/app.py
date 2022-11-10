@@ -27,11 +27,12 @@ def login():
         data = ibm_db.fetch_assoc(stmt)
         if data:
             session['logged_in'] = True
-            session['name'] = data.get('NAME')
-            return redirect(url_for('home'))
+            session['name'] = data["NAME"]
+            session['id']=data["ID"]
+            return redirect(url_for('dashboard'))
         else:
             flash('Invalid Credentials!')
-            return render_template('login.html')
+            return render_template('login.html',error=True)
 
 
 @app.route('/signup/', methods=['GET', 'POST'])
@@ -39,14 +40,15 @@ def signup():
     if request.method == "GET":
         return render_template('signup.html')
     else:
+        name=request.form['name']
         email = request.form['email']
+        passw = request.form['password']
         sql = "SELECT * FROM users WHERE email=?"
         stmt = ibm_db.prepare(conn, sql)
         ibm_db.bind_param(stmt, 1, email)
         ibm_db.execute(stmt)
         data = ibm_db.fetch_assoc(stmt)
         if not data:
-            passw = request.form['password']
             if len(passw)>=8:
                 if (request.form['password'] == request.form['confirm-password']):
                     insert_sql = "INSERT INTO users(EMAIL,NAME,PASSWORD) VALUES (?,?,?)"
@@ -66,9 +68,8 @@ def signup():
         else:
             flash("Email is already exist")
             return redirect(url_for('signup'))
-
-
-
+        
+        
 @app.route("/logout")
 def logout():
     session.pop('logged_in', None)
