@@ -1,0 +1,73 @@
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .card-registration {
+        position: relative;
+    }
+    
+    .d-flex {
+        width: 55vw;
+        background-color: white;
+        position: absolute;
+        transform: translate(40%, 15%);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 15px;
+        box-shadow: 0 0 3px 3px rgb(179, 179, 179);
+    }
+    
+    .col-large-1,
+    .col-row-large-2 {
+        padding: 4vh 7vh 4vh 7vh;
+    }
+    
+    .col-large-1 .card-title,
+    .col-row-large-2 h2 {
+        padding: 2vh 0;
+    }
+    
+    .btn-type {
+        padding: 2rem 0;
+    }
+    
+    .col-large-2 {
+        color: white;
+        background-color: rgba(40, 87, 243, 1);
+    }
+    
+    .col-large-2 {
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    
+    .flash-message {
+        position: absolute;
+        left: 350px;
+        top: 650px;
+    }
+    
+    .flash-message .alert-success {
+        text-align: center;
+        width: 150px;
+        font-size: 17px;
+        background-color: rgb(50, 181, 50);
+        color: white;
+        border-radius: 5px;
+        padding: 5px;
+    }
+    
+    .flash-message .alert-error {
+        text-align: center;
+        font-size: 17px;
+        width: 150px;
+        background-color: rgba(211, 64, 64, 0.977);
+        color: white;
+        border-radius: 5px;
+        padding: 5px;
+    }
