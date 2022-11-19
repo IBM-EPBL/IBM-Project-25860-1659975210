@@ -232,11 +232,10 @@ def AddWallet():
 @app.route('/UpdateWallet',methods=["GET","POST"])
 def UpdateWallet():
     if request.method=="POST":
-        sql="UPDATE WALLET SET AMOUNT=? WHERE ID=? AND USERID=?"
+        sql="UPDATE WALLET SET AMOUNT=? WHERE USERID=?"
         stmt = ibm_db.prepare(conn, sql) 
         ibm_db.bind_param(stmt, 1,request.form["newamount"]) 
-        ibm_db.bind_param(stmt, 2,1)
-        ibm_db.bind_param(stmt, 3,session['id'])
+        ibm_db.bind_param(stmt, 2,session['id'])
         ibm_db.execute(stmt)
         flash("Wallet updated successfully")
         return redirect(url_for('wallet'))
