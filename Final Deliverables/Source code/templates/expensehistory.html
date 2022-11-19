@@ -1,0 +1,88 @@
+{% extends 'index.html' %}
+     
+{% block title %} Expense History {% endblock %}
+{% block body %}
+<script>
+    document.querySelector('.history').classList.add('active');
+</script>
+
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">History
+        </h1>
+    </div>
+    <main class="main mt-3">
+        <div class="container col d-flex justify-content-center">
+            <div class="card rounded-t-5 ">
+                <div class="card-body">
+                    <form action="{{url_for('ExpenseHistory')}}" method="POST">
+                        <div class="row">
+                            <div class="form-outline pl-2 pr-2">
+                                <div class="row pl-1">
+                                    <div class="px-2 py-1">Start:</div>
+                                    <div>
+                                        <input type="date" name="startDate" id="form2Example1"
+                                            class="form-control-sm form-control mr-2" required/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-outline pl-2 pr-3">
+                                <div class="row pl-5">
+                                    <div class="px-2 py-1">End:</div>
+                                    <div>
+                                        <input type="date" name="EndDate" id="form2Example2"
+                                            class="form-control-sm form-control mr-2" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-outline pl-2 pr-2">
+                                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <main class="main mt-5">
+        <div class="container col d-flex justify-content-center ">
+                <div class="card w-75 shadow-lg rounded-t-5 ">
+                    <div class="card-body ">
+                        {% if Expense %}
+                        <div class="card-title">{% if num %} Last 5 Transactions {% else %} Transactions{% endif %}</div>
+                    
+                    <table class="table table-sm px-2">
+                        <thead>
+                            <tr>
+                                <th scope="col">Category</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Date</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in Expense %}
+                            
+                            <tr>
+                                <td>{{row["CATEGORY"]}}</td>
+                                <td>{{row["AMOUNT"]}}</td>
+                                <td>{{row["DATEOFEXPENSE"]}}</td>
+                                <td><a href="/expense/delete/{{row['ID']}}" class="btn-sm btn btn-danger">Delete</a></td>
+                            </tr>
+                           
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                    {% else %}
+                            <div class="text-center">No Transaction</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+   
+</div>
+    {% endblock %}

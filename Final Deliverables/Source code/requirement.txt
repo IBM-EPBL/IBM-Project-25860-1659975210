@@ -1,0 +1,3 @@
+flask
+ibm-db
+flask-mail
