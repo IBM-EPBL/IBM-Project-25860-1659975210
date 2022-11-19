@@ -162,9 +162,9 @@ def dashboard():
     current_month_expense=current_month_expense_amount()
     wallet=getWallet()
     expense=ExpenseCount()
-
-    if current_month_expense["1"] >wallet["AMOUNT"]:
-        SendMail(session['email'])
+    if current_month_expense and wallet:
+      if current_month_expense["1"] >wallet["AMOUNT"]:
+         SendMail(session['email'])
 
 
     return render_template('dashboard.html',wallet=wallet,expense=expense,
